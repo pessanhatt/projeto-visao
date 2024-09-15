@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição para Exame de Vista Gratuito</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d0e0e3;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007acc;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            border-color: #007acc;
+            outline: none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 15px;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #218838;
+            transform: translateY(1px);
+        }
+
+        .radio-container {
+            margin-top: 30px;
+        }
+
+        .radio-container input[type="radio"] {
+            display: none;
+        }
+
+        .radio-container label {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .radio-container input[type="radio"]:checked + label {
+            background-color: #007acc;
+            color: #ffffff;
+            border-color: #007acc;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Inscrição para Exame de Vista Gratuito</h1>
+        <form id="inscricao-form">
+            <label for="nome-completo">Nome completo *</label>
+            <input type="text" id="nome-completo" name="nome-completo" placeholder="Digite seu nome completo" required>
+
+            <label for="whatsapp">Número de WhatsApp *</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(XX) XXXXX-XXXX" required>
+
+            <label for="cidade">Cidade *</label>
+            <select id="cidade" name="cidade" required>
+                <option value="">Selecione sua cidade</option>
+                <option value="Guarapari">Guarapari</option>
+                <option value="Vila Velha">Vila Velha</option>
+                <option value="Serra">Serra</option>
+                <option value="Viana">Viana</option>
+                <option value="Cariacica">Cariacica</option>
+            </select>
+
+            <label for="bairro">Bairro *</label>
+            <select id="bairro" name="bairro" required>
+                <option value="">Selecione o bairro</option>
+            </select>
+
+            <label>Possui alguma patologia visual?</label>
+            <div class="radio-container">
+                <input type="radio" id="catarata" name="patologia" value="Catarata">
+                <label for="catarata">Catarata</label>
+                
+                <input type="radio" id="glaucoma" name="patologia" value="Glaucoma">
+                <label for="glaucoma">Glaucoma</label>
+                
+                <input type="radio" id="outros" name="patologia" value="Outro(s)">
+                <label for="outros">Outro(s)</label>
+                
+                <input type="radio" id="nao-sabe" name="patologia" value="Não sabe informar">
+                <label for="nao-sabe">Não sabe informar</label>
+            </div>
+
+            <button type="submit">Enviar Inscrição</button>
+        </form>
+        <p class="note">Obrigado por se inscrever! Entraremos em contato via WhatsApp para agendar seu exame.</p>
+    </div>
+
+    <script>
+        const bairrosPorCidade = {
+            "Guarapari": [
+                "Muquiçaba", 
+                "Centro", 
+                "Parque Areia Preta", 
+                "Aeroporto", 
+                "Praia do Morro"
+            ],
+            "Vila Velha": [
+                "Terra Vermelha", 
+                "Santa Monica", 
+                "Centro", 
+                "Itapoã", 
+                "Soteco"
+            ],
+            "Serra": [
+                "Porto Canoa", 
+                "Parque Residencial Laranjeiras", 
+                "Nova Almeida"
+            ],
+            "Viana": [
+                "Marcílio de Noronha", 
+                "Centro"
+            ],
+            "Cariacica": [
+                "Campo Grande", 
+                "Bela Aurora"
+            ]
+        };
+
+        // Evento para mudar os bairros conforme a cidade selecionada
+        document.getElementById("cidade").addEventListener("change", function() {
+            const cidadeSelecionada = this.value;
+            const bairroSelect = document.getElementById("bairro");
+
+            // Limpa as opções anteriores
+            bairroSelect.innerHTML = '<option value="">Selecione o bairro</option>';
+
+            if (cidadeSelecionada && bairrosPorCidade[cidadeSelecionada]) {
+                const bairros = bairrosPorCidade[cidadeSelecionada];
+
+                // Adiciona cada bairro no select
+                bairros.forEach(function(bairro) {
+                    const option = document.createElement("option");
+                    option.value = bairro;
+                    option.textContent = bairro;
+                    bairroSelect.appendChild(option);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
